@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as LocationActions from "./location.actions";
-import * as LocationSelectors from "./location.selectors";
+import {Injectable} from '@angular/core';
+import {Store} from '@ngrx/store';
+import * as LocationActions from './location.actions';
+import * as LocationSelectors from './location.selectors';
 import {WeatherService} from '../weather.service';
 
 @Injectable({
@@ -23,8 +23,4 @@ export class LocationFacade {
     getWeatherIcon(id: number) {
         return this.weatherService.getWeatherIcon(id);
     }
-
-    // getLocations() {
-    //     return this.store.select(state => state.locations);
-    // }
 }

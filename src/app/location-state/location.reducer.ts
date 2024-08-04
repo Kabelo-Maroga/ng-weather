@@ -1,5 +1,5 @@
 import {createReducer, on} from '@ngrx/store';
-import {addCurrentConditionsSuccess, removeCurrentConditions, removeCurrentConditionsSuccess,} from './location.actions';
+import {addCurrentConditionsSuccess, removeCurrentConditions,} from './location.actions';
 import {ConditionsAndZip} from '../conditions-and-zip.type';
 
 export const featureKey = "LocationReducer";
@@ -7,6 +7,7 @@ export const featureKey = "LocationReducer";
 export interface State {
     currentConditions: ConditionsAndZip[]
 }
+
 export const initialState: State = {
     currentConditions: []
 };
