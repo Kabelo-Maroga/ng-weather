@@ -1,5 +1,5 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {featureKey, State} from './location.reducer';
+import {featureKey, State} from './weather.reducer';
 
 export const selectLocationState = createFeatureSelector<State>(featureKey);
 

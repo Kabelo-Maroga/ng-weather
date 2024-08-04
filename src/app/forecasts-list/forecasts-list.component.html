@@ -11,7 +11,7 @@
         - Min: {{dailyForecast.temp.min | number:'.0-0'}}
         - Max: {{dailyForecast.temp.max | number:'.0-0'}}
 
-        <img [src]="locationFacade.getWeatherIcon(dailyForecast.weather[0].id) | async" class="icon">
+        <img [src]="weatherFacade.getWeatherIcon(dailyForecast.weather[0].id) | async" class="icon">
       </li>
     </ul>
   </div>

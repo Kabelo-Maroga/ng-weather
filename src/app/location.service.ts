@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {LocationFacade} from './location-state/location.facade';
+import {WeatherFacade} from './weather-state/weather.facade';
 
 export const LOCATIONS : string = "locations";
 
@@ -8,7 +8,7 @@ export class LocationService {
 
   locations : string[] = [];
 
-  constructor(private locationFacade: LocationFacade ) {
+  constructor(private locationFacade: WeatherFacade ) {
     let locString = localStorage.getItem(LOCATIONS);
     if (locString)
       this.locations = JSON.parse(locString);

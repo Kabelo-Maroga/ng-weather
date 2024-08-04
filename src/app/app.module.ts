@@ -15,9 +15,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {StoreModule} from '@ngrx/store';
-import * as LocationReducer from './location-state/location.reducer';
+import * as LocationReducer from './weather-state/weather.reducer';
 import {EffectsModule} from '@ngrx/effects';
-import {LocationEffects} from './location-state/location.effects';
+import {WeatherEffects} from './weather-state/weather.effects';
 
 @NgModule({
   declarations: [
@@ -34,8 +34,8 @@ import {LocationEffects} from './location-state/location.effects';
     RouterModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
-    StoreModule.forFeature(LocationReducer.featureKey, LocationReducer.locationReducer),
-    EffectsModule.forFeature([LocationEffects]),
+    StoreModule.forFeature(LocationReducer.featureKey, LocationReducer.weatherReducer),
+    EffectsModule.forFeature([WeatherEffects]),
     routing,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],

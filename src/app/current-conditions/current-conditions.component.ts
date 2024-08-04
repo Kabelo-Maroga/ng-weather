@@ -2,7 +2,7 @@ import {Component, inject, Signal} from '@angular/core';
 import {LocationService} from '../location.service';
 import {Router} from '@angular/router';
 import {ConditionsAndZip} from '../conditions-and-zip.type';
-import {LocationFacade} from '../location-state/location.facade';
+import {WeatherFacade} from '../weather-state/weather.facade';
 import {toSignal} from '@angular/core/rxjs-interop';
 
 @Component({
@@ -13,9 +13,9 @@ import {toSignal} from '@angular/core/rxjs-interop';
 export class CurrentConditionsComponent {
 
   private router = inject(Router);
-  protected locationFacade = inject(LocationFacade);
+  protected weatherFacade = inject(WeatherFacade);
   protected locationService = inject(LocationService);
-  protected currentConditionsByZip: Signal<ConditionsAndZip[]> = toSignal(this.locationFacade.currentConditions$);
+  protected currentConditionsByZip: Signal<ConditionsAndZip[]> = toSignal(this.weatherFacade.currentConditions$);
 
   showForecast(zipcode : string){
     this.router.navigate(['/forecast', zipcode])

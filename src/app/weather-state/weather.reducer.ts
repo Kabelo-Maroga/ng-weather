@@ -1,5 +1,5 @@
 import {createReducer, on} from '@ngrx/store';
-import * as LocationActions from './location.actions';
+import * as Actions from './weather.actions';
 import {ConditionsAndZip} from '../conditions-and-zip.type';
 import {Forecast} from '../forecasts-list/forecast.type';
 
@@ -17,21 +17,21 @@ export const initialState: State = {
     iconUrl: null
 };
 
-export const locationReducer = createReducer(
+export const weatherReducer = createReducer(
     initialState,
-    on(LocationActions.addCurrentConditionsSuccess, (state, { zipcode, data }) => ({
+    on(Actions.addCurrentConditionsSuccess, (state, { zipcode, data }) => ({
         ...state,
         currentConditions: [...state.currentConditions, { zip: zipcode, data }]
     })),
-    on(LocationActions.removeCurrentConditions, (state, { zipcode }) => ({
+    on(Actions.removeCurrentConditions, (state, { zipcode }) => ({
         ...state,
         currentConditions: removeCondition(state.currentConditions, zipcode)
     })),
-    on(LocationActions.getForecastSuccess, (state, { data }) => ({
+    on(Actions.getForecastSuccess, (state, { data }) => ({
         ...state,
         forecast: data
     })),
-    on(LocationActions.getIconSuccess, (state, { iconUrl }) => ({
+    on(Actions.getIconSuccess, (state, { iconUrl }) => ({
         ...state,
         iconUrl: iconUrl
     }))
