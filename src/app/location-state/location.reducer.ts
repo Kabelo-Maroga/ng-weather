@@ -1,5 +1,5 @@
 import {createReducer, on} from '@ngrx/store';
-import {addCurrentConditionsSuccess, removeCurrentConditionsSuccess,} from './location.actions';
+import {addCurrentConditionsSuccess, removeCurrentConditions, removeCurrentConditionsSuccess,} from './location.actions';
 import {ConditionsAndZip} from '../conditions-and-zip.type';
 
 export const featureKey = "LocationReducer";
@@ -17,7 +17,7 @@ export const locationReducer = createReducer(
         ...state,
         currentConditions: [...state.currentConditions, { zip: zipcode, data }]
     })),
-    on(removeCurrentConditionsSuccess, (state, { zipcode }) => ({
+    on(removeCurrentConditions, (state, { zipcode }) => ({
         ...state,
         currentConditions: removeCondition(state.currentConditions, zipcode)
     }))

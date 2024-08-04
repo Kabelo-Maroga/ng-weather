@@ -16,25 +16,24 @@ export class WeatherService {
 
   constructor(private http: HttpClient) { }
 
-  addCurrentConditions(zipcode: string): void {
+  addCurrentConditions(zipcode: string): Observable<CurrentConditions> {
     // Here we make a request to get the current conditions data from the API. Note the use of backticks and an expression to insert the zipcode
-    this.http.get<CurrentConditions>(`${WeatherService.URL}/weather?zip=${zipcode},us&units=imperial&APPID=${WeatherService.APPID}`)
-      .subscribe(data => this.currentConditions.update(conditions => [...conditions, {zip: zipcode, data}]));
+    return this.http.get<CurrentConditions>(`${WeatherService.URL}/weather?zip=${zipcode},us&units=imperial&APPID=${WeatherService.APPID}`);
   }
 
-  removeCurrentConditions(zipcode: string) {
-    this.currentConditions.update(conditions => {
-      for (let i in conditions) {
-        if (conditions[i].zip == zipcode)
-          conditions.splice(+i, 1);
-      }
-      return conditions;
-    })
-  }
+  // removeCurrentConditions(zipcode: string) {
+  //   this.currentConditions.update(conditions => {
+  //     for (let i in conditions) {
+  //       if (conditions[i].zip == zipcode)
+  //         conditions.splice(+i, 1);
+  //     }
+  //     return conditions;
+  //   })
+  // }
 
-  getCurrentConditions(): Signal<ConditionsAndZip[]> {
-    return this.currentConditions.asReadonly();
-  }
+  // getCurrentConditions(): Signal<ConditionsAndZip[]> {
+  //   return this.currentConditions.asReadonly();
+  // }
 
   getForecast(zipcode: string): Observable<Forecast> {
     // Here we make a request to get the forecast data from the API. Note the use of backticks and an expression to insert the zipcode
