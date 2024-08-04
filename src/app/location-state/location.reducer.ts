@@ -20,14 +20,20 @@ export const locationReducer = createReducer(
     })),
     on(removeCurrentConditions, (state, { zipcode }) => ({
         ...state,
-        currentConditions: removeCondition([...state.currentConditions], zipcode)
+        currentConditions: removeCondition(state.currentConditions, zipcode)
     }))
 );
 
+// function removeCondition(conditions: ConditionsAndZip[], zipcode: string): ConditionsAndZip[] {
+//     for (let i in conditions) {
+//         if (conditions[i].zip == zipcode)
+//             conditions.splice(+i, 1);
+//     }
+//     return conditions;
+// }
+
+
+//better implementation...
 function removeCondition(conditions: ConditionsAndZip[], zipcode: string): ConditionsAndZip[] {
-    for (let i in conditions) {
-        if (conditions[i].zip == zipcode)
-            conditions.splice(+i, 1);
-    }
-    return conditions;
+    return conditions.filter(condition => condition.zip !== zipcode);
 }
