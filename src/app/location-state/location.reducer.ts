@@ -8,11 +8,13 @@ export const featureKey = "LocationReducer";
 export interface State {
     currentConditions: ConditionsAndZip[],
     forecast: Forecast;
+    iconUrl: string;
 }
 
 export const initialState: State = {
     currentConditions: [],
-    forecast: {} as Forecast
+    forecast: {} as Forecast,
+    iconUrl: null
 };
 
 export const locationReducer = createReducer(
@@ -28,6 +30,10 @@ export const locationReducer = createReducer(
     on(LocationActions.getForecastSuccess, (state, { data }) => ({
         ...state,
         forecast: data
+    })),
+    on(LocationActions.getIconSuccess, (state, { iconUrl }) => ({
+        ...state,
+        iconUrl: iconUrl
     }))
 );
 

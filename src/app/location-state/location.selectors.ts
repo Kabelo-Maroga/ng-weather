@@ -12,3 +12,8 @@ export const selectForecast = createSelector(
     selectLocationState,
     (state ) => state.forecast
 );
+
+export const selectIconUrl = createSelector(
+  selectLocationState,
+    (state) => state.iconUrl
+);

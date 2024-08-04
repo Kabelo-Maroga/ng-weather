@@ -49,3 +49,18 @@ export const getForecastFailure = createAction(
     '[Location] Get Forecast Failure',
     props<{ zipcode: string, error: any }>()
 );
+
+export const getIcon = createAction(
+    '[Location] Get Icon',
+    props<{ id: number }>()
+);
+
+export const getIconSuccess = createAction(
+    '[Location] Get Icon Success',
+    props<{ id: number, iconUrl: string }>()
+);
+
+export const getIconFailure = createAction(
+    '[Location] Get Icon Failure',
+    props<{ id: number, error: any }>()
+);
