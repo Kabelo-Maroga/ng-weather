@@ -7,3 +7,8 @@ export const selectCurrentConditions = createSelector(
     selectLocationState,
     (state: State) => state.currentConditions
 );
+
+export const selectForecast = createSelector(
+    selectLocationState,
+    (state ) => state.forecast
+);

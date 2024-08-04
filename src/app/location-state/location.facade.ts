@@ -12,12 +12,18 @@ export class LocationFacade {
 
     currentConditions$ = this.store.select(LocationSelectors.selectCurrentConditions);
 
+    selectForecast$ = this.store.select(LocationSelectors.selectForecast);
+
     addCurrentConditions(zipcode: string) {
         this.store.dispatch(LocationActions.addCurrentConditions({ zipcode }));
     }
 
     removeCurrentConditions(zipcode: string) {
         this.store.dispatch(LocationActions.removeCurrentConditions({ zipcode }));
+    }
+
+    getForecast(zipcode: string) {
+        this.store.dispatch(LocationActions.getForecast({ zipcode }));
     }
 
     getWeatherIcon(id: number) {

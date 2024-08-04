@@ -1,4 +1,4 @@
-export interface Forecast {
+export interface    Forecast {
     city:    City;
     cod:     string;
     message: number;

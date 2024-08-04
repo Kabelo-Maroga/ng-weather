@@ -1,6 +1,9 @@
 import { createAction, props } from '@ngrx/store';
 import {CurrentConditions} from '../current-conditions/current-conditions.type';
+import {Forecast} from '../forecasts-list/forecast.type';
 
+
+// adding/removing current locations.
 export const addCurrentConditions = createAction(
     '[Location] Add Current Location',
     props<{ zipcode: string }>()
@@ -28,5 +31,21 @@ export const removeCurrentConditionsSuccess = createAction(
 
 export const removeCurrentConditionsFailure = createAction(
     '[Location] Remove Current Location Failure',
+    props<{ zipcode: string, error: any }>()
+);
+
+// forecasts.
+export const getForecast = createAction(
+    '[Location] Get Forecast',
+    props<{ zipcode: string }>()
+);
+
+export const getForecastSuccess = createAction(
+    '[Location] Get Forecast Success',
+    props<{ zipcode: string, data: Forecast }>()
+);
+
+export const getForecastFailure = createAction(
+    '[Location] Get Forecast Failure',
     props<{ zipcode: string, error: any }>()
 );

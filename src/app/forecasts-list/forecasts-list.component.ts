@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-import {WeatherService} from '../weather.service';
+import {Component} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Forecast} from './forecast.type';
+import {LocationFacade} from '../location-state/location.facade';
 
 @Component({
   selector: 'app-forecasts-list',
@@ -9,15 +8,12 @@ import {Forecast} from './forecast.type';
   styleUrls: ['./forecasts-list.component.css']
 })
 export class ForecastsListComponent {
+  forecast$ = this.locationFacade.selectForecast$;
 
-  zipcode: string;
-  forecast: Forecast;
-
-  constructor(protected weatherService: WeatherService, route : ActivatedRoute) {
+  constructor(protected locationFacade: LocationFacade, route : ActivatedRoute) {
     route.params.subscribe(params => {
-      this.zipcode = params['zipcode'];
-      weatherService.getForecast(this.zipcode)
-        .subscribe(data => this.forecast = data);
+      const zipcode = params['zipcode'];
+      locationFacade.getForecast(zipcode);
     });
   }
 }

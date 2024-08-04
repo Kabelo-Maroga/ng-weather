@@ -1,26 +1,33 @@
 import {createReducer, on} from '@ngrx/store';
-import {addCurrentConditionsSuccess, removeCurrentConditions,} from './location.actions';
+import * as LocationActions from './location.actions';
 import {ConditionsAndZip} from '../conditions-and-zip.type';
+import {Forecast} from '../forecasts-list/forecast.type';
 
 export const featureKey = "LocationReducer";
 
 export interface State {
-    currentConditions: ConditionsAndZip[]
+    currentConditions: ConditionsAndZip[],
+    forecast: Forecast;
 }
 
 export const initialState: State = {
-    currentConditions: []
+    currentConditions: [],
+    forecast: {} as Forecast
 };
 
 export const locationReducer = createReducer(
     initialState,
-    on(addCurrentConditionsSuccess, (state, { zipcode, data }) => ({
+    on(LocationActions.addCurrentConditionsSuccess, (state, { zipcode, data }) => ({
         ...state,
         currentConditions: [...state.currentConditions, { zip: zipcode, data }]
     })),
-    on(removeCurrentConditions, (state, { zipcode }) => ({
+    on(LocationActions.removeCurrentConditions, (state, { zipcode }) => ({
         ...state,
         currentConditions: removeCondition(state.currentConditions, zipcode)
+    })),
+    on(LocationActions.getForecastSuccess, (state, { data }) => ({
+        ...state,
+        forecast: data
     }))
 );
 
