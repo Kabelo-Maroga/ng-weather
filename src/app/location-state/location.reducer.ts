@@ -20,7 +20,7 @@ export const locationReducer = createReducer(
     })),
     on(removeCurrentConditions, (state, { zipcode }) => ({
         ...state,
-        currentConditions: removeCondition(state.currentConditions, zipcode)
+        currentConditions: removeCondition([...state.currentConditions], zipcode)
     }))
 );
 
