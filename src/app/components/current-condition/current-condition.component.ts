@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {ConditionsAndZip} from '../conditions-and-zip.type';
-import {LocationService} from '../location.service';
-import {WeatherFacade} from '../weather-state/weather.facade';
+import {ConditionsAndZip} from '../../core/models/conditions-and-zip.type';
+import {LocationService} from '../../core/services/location.service';
+import {WeatherFacade} from '../../core/store/weather/weather.facade';
 
 @Component({
   selector: 'current-condition',

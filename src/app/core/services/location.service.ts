@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {WeatherFacade} from './weather-state/weather.facade';
+import {WeatherFacade} from '../store/weather/weather.facade';
 
 export const LOCATIONS : string = "locations";
 

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
-import * as Selectors from './weather.selectors';
+import * as Selectors from './state/weather.selectors';
 import {Observable} from 'rxjs';
-import * as Actions from './weather.actions';
+import * as Actions from './state/weather.actions';
 
 @Injectable({
     providedIn: 'root'

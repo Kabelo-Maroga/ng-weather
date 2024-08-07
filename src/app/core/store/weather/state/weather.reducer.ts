@@ -1,7 +1,7 @@
 import {createReducer, on} from '@ngrx/store';
 import * as Actions from './weather.actions';
-import {ConditionsAndZip} from '../conditions-and-zip.type';
-import {Forecast} from '../forecasts-list/forecast.type';
+import {ConditionsAndZip} from '../../../models/conditions-and-zip.type';
+import {Forecast} from '../../../models/forecast.type';
 
 export const featureKey = "LocationReducer";
 
