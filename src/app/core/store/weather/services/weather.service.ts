@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 
 import {HttpClient} from '@angular/common/http';
-import {CurrentConditions} from './current-conditions/current-conditions.type';
-import {Forecast} from './forecasts-list/forecast.type';
+import {CurrentConditions} from '../../../models/current-conditions.type';
+import {Forecast} from '../../../models/forecast.type';
 
 @Injectable()
 export class WeatherService {

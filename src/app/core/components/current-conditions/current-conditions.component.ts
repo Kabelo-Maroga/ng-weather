@@ -1,8 +1,8 @@
 import {Component, inject, Signal} from '@angular/core';
-import {LocationService} from '../location.service';
+import {LocationService} from '../../../location.service';
 import {Router} from '@angular/router';
-import {ConditionsAndZip} from '../conditions-and-zip.type';
-import {WeatherFacade} from '../weather-state/weather.facade';
+import {ConditionsAndZip} from '../../models/conditions-and-zip.type';
+import {WeatherFacade} from '../../store/weather/weather.facade';
 import {toSignal} from '@angular/core/rxjs-interop';
 
 @Component({
