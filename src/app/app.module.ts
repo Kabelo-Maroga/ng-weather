@@ -3,11 +3,11 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
-import {ZipcodeEntryComponent} from './core/components/zipcode-entry/zipcode-entry.component';
+import {ZipcodeEntryComponent} from './components/zipcode-entry/zipcode-entry.component';
 import {LocationService} from './location.service';
-import {ForecastsListComponent} from './core/components/forecasts-list/forecasts-list.component';
-import {CurrentConditionsComponent} from './core/components/current-conditions/current-conditions.component';
-import {MainPageComponent} from './core/components/main-page/main-page.component';
+import {ForecastsListComponent} from './components/forecasts-list/forecasts-list.component';
+import {CurrentConditionsComponent} from './components/current-conditions/current-conditions.component';
+import {MainPageComponent} from './components/main-page/main-page.component';
 import {RouterModule} from '@angular/router';
 import {routing} from './app.routing';
 import {HttpClientModule} from '@angular/common/http';

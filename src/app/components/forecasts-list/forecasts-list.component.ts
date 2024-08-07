@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {WeatherFacade} from '../../store/weather/weather.facade';
+import {WeatherFacade} from '../../core/store/weather/weather.facade';
 
 @Component({
   selector: 'app-forecasts-list',
