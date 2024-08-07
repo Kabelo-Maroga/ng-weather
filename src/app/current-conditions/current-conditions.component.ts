@@ -14,7 +14,6 @@ export class CurrentConditionsComponent {
 
   private router = inject(Router);
   protected weatherFacade = inject(WeatherFacade);
-  protected locationService = inject(LocationService);
   protected currentConditionsByZip: Signal<ConditionsAndZip[]> = toSignal(this.weatherFacade.currentConditions$);
 
   showForecast(zipcode : string){

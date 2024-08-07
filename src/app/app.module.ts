@@ -18,6 +18,7 @@ import {StoreModule} from '@ngrx/store';
 import * as LocationReducer from './weather-state/weather.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {WeatherEffects} from './weather-state/weather.effects';
+import {CurrentConditionComponent} from './current-condition/current-condition.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {WeatherEffects} from './weather-state/weather.effects';
     ZipcodeEntryComponent,
     ForecastsListComponent,
     CurrentConditionsComponent,
+    CurrentConditionComponent,
     MainPageComponent
   ],
   imports: [

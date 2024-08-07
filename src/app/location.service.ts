@@ -10,13 +10,18 @@ export class LocationService {
 
   constructor(private locationFacade: WeatherFacade ) {
     let locString = localStorage.getItem(LOCATIONS);
-    if (locString)
-      this.locations = JSON.parse(locString);
+    if (locString) {
+      const locations: string[] = JSON.parse(locString);
+      this.locations = [...new Set(locations)];
+    }
     for (let loc of this.locations)
       this.locationFacade.addCurrentConditions(loc);
   }
 
   addLocation(zipcode : string) {
+    if(this.locations.includes(zipcode)) {
+      return;
+    }
     this.locations.push(zipcode);
     localStorage.setItem(LOCATIONS, JSON.stringify(this.locations));
     this.locationFacade.addCurrentConditions(zipcode);

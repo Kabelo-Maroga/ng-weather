@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {catchError, map, switchMap} from 'rxjs/operators';
+import {catchError, concatMap, map, switchMap} from 'rxjs/operators';
 import * as WeatherActions from './weather.actions';
 import {WeatherService} from '../weather.service';
 import {of} from 'rxjs';
@@ -11,7 +11,7 @@ export class WeatherEffects {
     addCurrentConditions$ = createEffect(() =>
         this.actions$.pipe(
             ofType(WeatherActions.addCurrentConditions),
-            switchMap(({ zipcode }) => this.weatherService.addCurrentConditions(zipcode).pipe(
+            concatMap(({ zipcode }) => this.weatherService.addCurrentConditions(zipcode).pipe(
                 map(data => WeatherActions.addCurrentConditionsSuccess({ zipcode, data})),
                 catchError(error => of(WeatherActions.addCurrentConditionsFailure({ zipcode, error })))
             )),
@@ -21,7 +21,7 @@ export class WeatherEffects {
     getForecast$ = createEffect(() =>
         this.actions$.pipe(
             ofType(WeatherActions.getForecast),
-            switchMap(({ zipcode }) => this.weatherService.getForecast(zipcode).pipe(
+            concatMap(({ zipcode }) => this.weatherService.getForecast(zipcode).pipe(
                 map(data => WeatherActions.getForecastSuccess({ zipcode, data})),
                 catchError(error => of(WeatherActions.getForecastFailure({ zipcode, error })))
             )),
@@ -31,7 +31,7 @@ export class WeatherEffects {
     getIcon$ = createEffect(() =>
         this.actions$.pipe(
             ofType(WeatherActions.getIcon),
-            switchMap(({ id }) => this.weatherService.getWeatherIcon(id).pipe(
+            concatMap(({ id }) => this.weatherService.getWeatherIcon(id).pipe(
                 map(iconUrl => WeatherActions.getIconSuccess({ id, iconUrl})),
                 catchError(error => of(WeatherActions.getIconFailure({ id, error })))
             )),
