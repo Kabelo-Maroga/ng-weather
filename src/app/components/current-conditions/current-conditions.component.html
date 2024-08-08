@@ -1,4 +1,4 @@
-<app-tabs (close)="removeCondition($event)" [tabs]="tabs"></app-tabs>
+<app-tabs (closeTab)="removeCondition($event)" [tabs]="tabs"></app-tabs>
 
 <div *ngFor="let location of currentConditionsByZip()">
     <ng-template #locationTemplate>
