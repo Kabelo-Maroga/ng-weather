@@ -5,11 +5,7 @@ import {Tab} from '../../models/tab.type';
 @Component({
   selector: 'app-tabs',
   standalone: true,
-  imports: [
-    NgForOf,
-    NgIf,
-    NgTemplateOutlet
-  ],
+  imports: [NgForOf, NgIf, NgTemplateOutlet],
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.css'
 })
