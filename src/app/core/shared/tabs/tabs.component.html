@@ -4,7 +4,7 @@
              [class.active]="tab.active"
              (click)="selectTab(tab)">
             {{ tab.title }}
-            <span class="close-tab" (click)="closeTab(tab)">x</span>
+            <span class="close-tab" (click)="close(tab)">x</span>
         </div>
     </div>
     <div class="tab-content">

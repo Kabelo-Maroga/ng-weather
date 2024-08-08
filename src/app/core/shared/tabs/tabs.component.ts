@@ -15,18 +15,18 @@ import {Tab} from '../../models/tab.type';
 })
 export class TabsComponent {
   @Input() tabs: Tab[] = [];
-  @Output() close = new EventEmitter<string>();
+  @Output() closeTab = new EventEmitter<string>();
 
   selectTab(selectedTab: Tab) {
     this.tabs.forEach(tab => tab.active = false);
     selectedTab.active = true;
   }
 
-  closeTab(tabToClose: Tab) {
+  close(tabToClose: Tab) {
     const index = this.tabs.indexOf(tabToClose);
     if (index !== -1) {
       this.tabs.splice(index, 1);
-      this.close.emit(tabToClose.id);
+      this.closeTab.emit(tabToClose.id);
       if (tabToClose.active && this.tabs.length > 0) {
         this.selectTab(this.tabs[Math.min(index, this.tabs.length - 1)]);
       }
