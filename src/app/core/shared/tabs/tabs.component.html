@@ -1,0 +1,17 @@
+<div class="tabs">
+    <div class="tab-titles">
+        <div *ngFor="let tab of tabs"
+             [class.active]="tab.active"
+             (click)="selectTab(tab)">
+            {{ tab.title }}
+            <span class="close-tab" (click)="close(tab)">x</span>
+        </div>
+    </div>
+    <div class="tab-content">
+        <ng-container *ngFor="let tab of tabs">
+            <ng-container *ngIf="tab.active">
+                <ng-container *ngTemplateOutlet="tab.template"></ng-container>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>

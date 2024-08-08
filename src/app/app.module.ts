@@ -16,8 +16,10 @@ import {StoreModule} from '@ngrx/store';
 import * as LocationReducer from './core/store/weather/state/weather.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {WeatherEffects} from './core/store/weather/state/weather.effects';
-import {WeatherService} from './core/store/weather/services/weather.service';
 import {ConfigService} from './core/services/config.service';
+import {WeatherService} from './core/store/weather/services/weather.service';
+import {CurrentConditionComponent} from './components/current-condition/current-condition.component';
+import {TabsComponent} from './core/shared/tabs/tabs.component';
 
 export function initializeApp(appConfigService: ConfigService) {
   return () => appConfigService.loadConfig().toPromise();
@@ -29,6 +31,7 @@ export function initializeApp(appConfigService: ConfigService) {
     ZipcodeEntryComponent,
     ForecastsListComponent,
     CurrentConditionsComponent,
+    CurrentConditionComponent,
     MainPageComponent
   ],
   imports: [
@@ -41,7 +44,8 @@ export function initializeApp(appConfigService: ConfigService) {
     StoreModule.forFeature(LocationReducer.featureKey, LocationReducer.weatherReducer),
     EffectsModule.forFeature([WeatherEffects]),
     routing,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    TabsComponent
   ],
   providers: [
     WeatherService,

@@ -1,0 +1,39 @@
+.tabs {
+    border: 1px solid #fff;
+    padding: 10px;
+}
+
+.tab-titles {
+    color: #fff;
+    display: flex;
+    background-color: #337ab7;
+    width: fit-content;
+}
+
+.tab-titles > div {
+    padding: 10px;
+    cursor: pointer;
+    border-right: 5px solid #fff;
+}
+
+.tab-titles > div.active {
+    border-right: 5px solid #fff;
+    background-color: #17639a;
+}
+
+.tab-titles > div .close {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.tab-content {
+    border-top: none;
+}
+
+.close-tab {
+    position: relative;
+    cursor: pointer;
+    color: #fff;
+    left: 2px;
+    bottom: 2px;
+}
