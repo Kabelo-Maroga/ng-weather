@@ -13,12 +13,12 @@ export class TabsComponent {
   @Input() tabs: Tab[] = [];
   @Output() closeTab = new EventEmitter<string>();
 
-  selectTab(selectedTab: Tab) {
+  selectTab(selectedTab: Tab): void {
     this.tabs.forEach(tab => tab.active = false);
     selectedTab.active = true;
   }
 
-  close(tabToClose: Tab) {
+  close(tabToClose: Tab): void {
     const index = this.tabs.indexOf(tabToClose);
     if (index !== -1) {
       this.tabs.splice(index, 1);

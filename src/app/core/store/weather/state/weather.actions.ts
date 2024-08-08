@@ -3,7 +3,7 @@ import {Forecast} from '../../../models/forecast.type';
 import {CurrentConditions} from '../../../models/current-conditions.type';
 
 
-// adding/removing current locations.
+// adding or removing current locations.
 export const readCurrentConditionsFromCache = createAction(
     '[Location] Initialise Current Location From Local Storage',
     props<{ cacheKey: string }>()
@@ -38,6 +38,7 @@ export const removeCurrentConditionsFailure = createAction(
     '[Location] Remove Current Location Failure',
     props<{ zipcode: string, error: any }>()
 );
+
 
 // forecasts.
 export const getForecast = createAction(

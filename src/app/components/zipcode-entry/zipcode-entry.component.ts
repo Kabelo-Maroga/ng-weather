@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {WeatherFacade} from '../../core/store/weather/weather.facade';
 
 @Component({

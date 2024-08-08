@@ -8,7 +8,7 @@ import {WeatherFacade} from '../../core/store/weather/weather.facade';
   styleUrls: ['./forecasts-list.component.css']
 })
 export class ForecastsListComponent {
-  forecast$ = this.weatherFacade.selectForecast$;
+  protected forecast$ = this.weatherFacade.selectForecast$;
 
   constructor(protected weatherFacade: WeatherFacade, route : ActivatedRoute) {
     route.params.subscribe(params => {

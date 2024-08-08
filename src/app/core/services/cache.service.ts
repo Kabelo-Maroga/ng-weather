@@ -9,9 +9,15 @@ interface CacheEntry {
   providedIn: 'root'
 })
 export class CacheService {
-  constructor() {}
-
-  set<T>(cacheKey: string, zipcode: string, value: T, ttl: number): void {
+  /**
+   * Adds a record into the local storage, and also sets ttl (time-to-live) for that record
+   * in the local storage.
+   * @param cacheKey
+   * @param secondaryKey
+   * @param value
+   * @param ttl
+   */
+  set<T>(cacheKey: string, secondaryKey: string, value: T, ttl: number): void {
     const expiry = Date.now() + ttl;
     const cache: CacheEntry = { value, expiry };
 
@@ -24,33 +30,42 @@ export class CacheService {
       cacheMap = {};
     }
 
-    cacheMap[zipcode] = cache;
+    cacheMap[secondaryKey] = cache;
     localStorage.setItem(cacheKey, JSON.stringify(cacheMap));
   }
 
-  get<T>(primaryKey: string, secondaryKey: string): T | null {
-    const cacheItem = localStorage.getItem(primaryKey);
+  /**
+   * Retrieves all records from local storage, and thereafter lookup a specific record by the secondaryKey.
+   * @param cacheKey
+   * @param zipcode
+   */
+  get<T>(cacheKey: string, zipcode: string): T | null {
+    const cacheItem = localStorage.getItem(cacheKey);
     if (!cacheItem) {
       return null;
     }
 
     const cacheMap: { [key: string]: CacheEntry } = JSON.parse(cacheItem);
-    const cacheEntry = cacheMap[secondaryKey];
+    const cacheEntry = cacheMap[zipcode];
 
     if (!cacheEntry) {
       return null;
     }
 
     if (Date.now() > cacheEntry.expiry) {
-      delete cacheMap[secondaryKey];
-      localStorage.setItem(primaryKey, JSON.stringify(cacheMap));
+      delete cacheMap[zipcode];
+      localStorage.setItem(cacheKey, JSON.stringify(cacheMap));
       return null;
     }
     return cacheEntry.value as T;
   }
 
-  getAll<T>(primaryKey: string): { [secondaryKey: string]: T } {
-    const cacheItem = localStorage.getItem(primaryKey);
+  /**
+   * Retrieves all records in the location storage by the specified key.
+   * @param cacheKey
+   */
+  getAll<T>(cacheKey: string): { [secondaryKey: string]: T } {
+    const cacheItem = localStorage.getItem(cacheKey);
     if (!cacheItem) {
       return {};
     }
@@ -66,34 +81,18 @@ export class CacheService {
       }
     }
 
-    localStorage.setItem(primaryKey, JSON.stringify(cacheMap));
+    localStorage.setItem(cacheKey, JSON.stringify(cacheMap));
     return validEntries;
   }
 
-  clear(primaryKey: string, secondaryKey: string): void {
-    const cacheItem = localStorage.getItem(primaryKey);
+  clear(cacheKey: string, secondaryKey: string): void {
+    const cacheItem = localStorage.getItem(cacheKey);
     if (!cacheItem) {
       return;
     }
 
     const cacheMap: { [key: string]: CacheEntry } = JSON.parse(cacheItem);
     delete cacheMap[secondaryKey];
-    localStorage.setItem(primaryKey, JSON.stringify(cacheMap));
-  }
-
-  clearExpired(primaryKey: string): void {
-    const cacheItem = localStorage.getItem(primaryKey);
-    if (!cacheItem) {
-      return;
-    }
-
-    const cacheMap: { [key: string]: CacheEntry } = JSON.parse(cacheItem);
-
-    for (const key in cacheMap) {
-      if (Date.now() > cacheMap[key].expiry) {
-        delete cacheMap[key];
-      }
-    }
-    localStorage.setItem(primaryKey, JSON.stringify(cacheMap));
+    localStorage.setItem(cacheKey, JSON.stringify(cacheMap));
   }
 }

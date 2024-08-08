@@ -4,7 +4,6 @@ import {WeatherFacade} from '../../core/store/weather/weather.facade';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {LOCATIONS} from '../../core/models/constants/cache.type';
 import {Tab} from '../../core/models/tab.type';
-import {distinctUntilChanged, tap} from 'rxjs/operators';
 import {ConditionsAndZip} from '../../core/models/conditions-and-zip.type';
 
 @Component({
@@ -16,11 +15,10 @@ export class CurrentConditionsComponent implements OnInit, AfterViewInit, AfterC
   protected router = inject(Router);
   protected weatherFacade = inject(WeatherFacade);
   protected currentConditionsByZip = toSignal(this.weatherFacade.currentConditions$);
+  protected tabs: Tab[] = [];
 
   @ViewChildren('locationTemplate', { read: TemplateRef })
   readonly locationTemplates!: QueryList<TemplateRef<any>>;
-
-  tabs: Tab[] = [];
 
   ngOnInit(): void {
     this.loadInitConditions();

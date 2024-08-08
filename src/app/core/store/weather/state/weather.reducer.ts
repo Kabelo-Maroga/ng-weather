@@ -33,7 +33,6 @@ export const weatherReducer = createReducer(
         ...state,
         currentConditions: removeCondition(state.currentConditions, zipcode)
     })),
-
     on(Actions.getForecastSuccess, (state, { data }) => ({
         ...state,
         forecast: data
