@@ -1,6 +1,6 @@
 <app-tabs (closeTab)="removeCondition($event)" [tabs]="tabs"></app-tabs>
 
-<div *ngFor="let location of currentConditionsByZip()">
+<div *ngFor="let location of currentConditionsByZip(); trackBy: trackByZip">
     <ng-template #locationTemplate>
         <div class="well" (click)="showForecast(location.zip)">
             <app-current-condition
@@ -10,3 +10,7 @@
         </div>
     </ng-template>
 </div>
+<ng-container *ngIf="!currentConditionsByZip().length">
+    <hr/>
+    <div class="no-records">{{ 'No records!' }}</div>
+</ng-container>

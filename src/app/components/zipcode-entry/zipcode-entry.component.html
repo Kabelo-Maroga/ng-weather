@@ -1,6 +1,7 @@
 <div class="well">
   <h2>Enter a zipcode:</h2>
-  <input type="text" #zipcode placeholder="Zipcode" class="form-control">
+  <h6 style="font-size: 9px;">Hint: A zipcode must have 5 digits.</h6>
+  <input type="text" #zipcode placeholder="Enter a valid zipcode" class="form-control">
   <br>
   <button class="btn btn-primary" (click)="addLocation(zipcode.value)" >
     Add location

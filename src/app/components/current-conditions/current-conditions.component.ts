@@ -20,6 +20,10 @@ export class CurrentConditionsComponent implements OnInit, AfterViewInit, AfterC
   @ViewChildren('locationTemplate', { read: TemplateRef })
   readonly locationTemplates!: QueryList<TemplateRef<any>>;
 
+  trackByZip(index: number, location: ConditionsAndZip): string {
+    return location.zip;
+  }
+
   ngOnInit(): void {
     this.loadInitConditions();
   }

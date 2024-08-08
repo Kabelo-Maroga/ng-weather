@@ -1,7 +1,13 @@
 .close {
   cursor: pointer;
 }
+
 .flex {
   display: flex;
   justify-content: space-between;
+}
+
+.no-records {
+  display: flex;
+  justify-content: center;
 }
