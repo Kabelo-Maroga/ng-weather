@@ -14,12 +14,14 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {StoreModule} from '@ngrx/store';
 import * as LocationReducer from './core/store/weather/state/weather.reducer';
+import * as NotificationReducer from './core/store/notification/state/notification.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {WeatherEffects} from './core/store/weather/state/weather.effects';
 import {ConfigService} from './core/services/config.service';
 import {WeatherService} from './core/store/weather/services/weather.service';
 import {CurrentConditionComponent} from './components/current-condition/current-condition.component';
 import {TabsComponent} from './core/shared/tabs/tabs.component';
+import {NotificationComponent} from './core/shared/notification/notification.component';
 
 export function initializeApp(appConfigService: ConfigService) {
   return () => appConfigService.loadConfig().toPromise();
@@ -34,19 +36,27 @@ export function initializeApp(appConfigService: ConfigService) {
     CurrentConditionComponent,
     MainPageComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    RouterModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
-    StoreModule.forFeature(LocationReducer.featureKey, LocationReducer.weatherReducer),
-    EffectsModule.forFeature([WeatherEffects]),
-    routing,
-    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
-    TabsComponent
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        RouterModule,
+        StoreModule.forRoot({}),
+
+        //weather store
+        EffectsModule.forRoot([]),
+        StoreModule.forFeature(LocationReducer.featureKey, LocationReducer.weatherReducer),
+
+        //notification store
+        EffectsModule.forRoot([]),
+        StoreModule.forFeature(NotificationReducer.featureKey, NotificationReducer.notificationReducer),
+
+        EffectsModule.forFeature([WeatherEffects]),
+        routing,
+        ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+        TabsComponent,
+        NotificationComponent
+    ],
   providers: [
     WeatherService,
     ConfigService,

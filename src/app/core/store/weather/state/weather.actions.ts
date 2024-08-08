@@ -11,7 +11,7 @@ export const readCurrentConditionsFromCache = createAction(
 
 export const addCurrentConditions = createAction(
     '[Location] Add Current Location',
-    props<{ zipcode: string }>()
+    props<{ zipcode: string, notification: boolean }>()
 );
 
 export const addCurrentConditionsSuccess = createAction(

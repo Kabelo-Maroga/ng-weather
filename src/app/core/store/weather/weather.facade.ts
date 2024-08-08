@@ -21,7 +21,7 @@ export class WeatherFacade {
     }
 
     addCurrentConditions(zipcode: string): void {
-        this.store.dispatch(Actions.addCurrentConditions({ zipcode }));
+        this.store.dispatch(Actions.addCurrentConditions({ zipcode, notification: true }));
     }
 
     removeCurrentConditions(zipcode: string): void {

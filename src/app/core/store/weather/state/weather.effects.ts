@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {catchError, concatMap, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
+import {catchError, concatMap, filter, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
 import * as WeatherActions from './weather.actions';
-import {from, of} from 'rxjs';
+import * as NotificationActions from '../../notification/state/notification.actions';
+import {from, iif, of} from 'rxjs';
 import {CacheService} from '../../../services/cache.service';
 import {CurrentConditions} from '../../../models/current-conditions.type';
 import {WeatherService} from '../services/weather.service';
@@ -25,7 +26,7 @@ export class WeatherEffects {
                 if (Object.keys(cachedLocations).length > 0) {
                     const locations = [...new Set(Object.keys(cachedLocations))];
                     return from(locations).pipe(
-                        concatMap((loc) => of(WeatherActions.addCurrentConditions({ zipcode: loc })))
+                        concatMap((loc) => of(WeatherActions.addCurrentConditions({ zipcode: loc, notification: false })))
                     );
                 }
                 return of(null);
@@ -37,19 +38,21 @@ export class WeatherEffects {
         this.actions$.pipe(
             ofType(WeatherActions.addCurrentConditions),
             withLatestFrom(this.configService.config$),
-            concatMap(([{ zipcode }, config]) => {
+            concatMap(([{ zipcode, notification }, config]) => {
                 const cachedData: CurrentConditions = this.cacheService.get(LOCATIONS, zipcode);
-                if (cachedData) {
-                    return of(WeatherActions.addCurrentConditionsSuccess({ zipcode, data: cachedData }));
-                } else {
-                    return this.weatherService.addCurrentConditions(zipcode).pipe(
+                return iif(
+                    () => !!cachedData, of(
+                        WeatherActions.addCurrentConditionsSuccess({ zipcode, data: cachedData }),
+                        notification ? NotificationActions.addNotification({ notification: `zipcode: ${zipcode} exists already!` }) : null
+                    ).pipe(filter(action => !!action)),
+                    this.weatherService.addCurrentConditions(zipcode).pipe(
                         map(data => {
                             this.cacheService.set<CurrentConditions>(LOCATIONS, zipcode, data, config.cacheTTL);
                             return WeatherActions.addCurrentConditionsSuccess({ zipcode, data });
                         }),
                         catchError(error => of(WeatherActions.addCurrentConditionsFailure({ zipcode, error })))
-                    );
-                }
+                    )
+                );
             })
         )
     );
