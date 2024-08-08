@@ -1,25 +1,24 @@
 .tabs {
-    border: 1px solid #ccc;
+    border: 1px solid #fff;
     padding: 10px;
 }
 
 .tab-titles {
+    color: #fff;
     display: flex;
-    background-color: #f1f1f1;
-    border-bottom: 1px solid #ccc;
+    background-color: #337ab7;
+    width: fit-content;
 }
 
 .tab-titles > div {
     padding: 10px;
     cursor: pointer;
-    border-right: 1px solid #ccc;
+    border-right: 5px solid #fff;
 }
 
 .tab-titles > div.active {
-    background-color: #fff;
-    border-top: 2px solid #007bff;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
+    border-right: 5px solid #fff;
+    background-color: #17639a;
 }
 
 .tab-titles > div .close {
@@ -28,6 +27,13 @@
 }
 
 .tab-content {
-    padding: 10px;
     border-top: none;
+}
+
+.close-tab {
+    position: relative;
+    cursor: pointer;
+    color: #fff;
+    left: 2px;
+    bottom: 2px;
 }
