@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
-import * as Selectors from './weather.selectors';
+import * as Selectors from './state/weather.selectors';
 import {Observable} from 'rxjs';
-import * as Actions from './weather.actions';
+import * as Actions from './state/weather.actions';
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +15,10 @@ export class WeatherFacade {
     selectForecast$ = this.store.select(Selectors.selectForecast);
 
     iconUrl$ = this.store.select(Selectors.selectIconUrl);
+
+    readCurrentConditionsFromCache(cacheKey: string) {
+        this.store.dispatch(Actions.readCurrentConditionsFromCache({ cacheKey }));
+    }
 
     addCurrentConditions(zipcode: string): void {
         this.store.dispatch(Actions.addCurrentConditions({ zipcode }));
