@@ -16,6 +16,10 @@ export class WeatherFacade {
 
     iconUrl$ = this.store.select(Selectors.selectIconUrl);
 
+    readCurrentConditionsFromCache(cacheKey: string) {
+        this.store.dispatch(Actions.readCurrentConditionsFromCache({ cacheKey }));
+    }
+
     addCurrentConditions(zipcode: string): void {
         this.store.dispatch(Actions.addCurrentConditions({ zipcode }));
     }

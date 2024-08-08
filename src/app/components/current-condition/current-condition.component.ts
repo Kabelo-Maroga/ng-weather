@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core';
 import {ConditionsAndZip} from '../../core/models/conditions-and-zip.type';
-import {LocationService} from '../../core/services/location.service';
 import {WeatherFacade} from '../../core/store/weather/weather.facade';
 
 @Component({
@@ -11,7 +10,7 @@ import {WeatherFacade} from '../../core/store/weather/weather.facade';
 export class CurrentConditionComponent {
   @Input() location: ConditionsAndZip;
 
-  constructor(public locationService: LocationService,
+  constructor(
               public weatherFacade: WeatherFacade) {
   }
 }

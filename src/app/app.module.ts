@@ -1,12 +1,10 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
 import {ZipcodeEntryComponent} from './components/zipcode-entry/zipcode-entry.component';
-import {LocationService} from './core/services/location.service';
 import {ForecastsListComponent} from './components/forecasts-list/forecasts-list.component';
-import {WeatherService} from './core/services/weather.service';
 import {CurrentConditionsComponent} from './components/current-conditions/current-conditions.component';
 import {MainPageComponent} from './components/main-page/main-page.component';
 import {RouterModule} from '@angular/router';
@@ -18,7 +16,13 @@ import {StoreModule} from '@ngrx/store';
 import * as LocationReducer from './core/store/weather/state/weather.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {WeatherEffects} from './core/store/weather/state/weather.effects';
+import {ConfigService} from './core/services/config.service';
+import {WeatherService} from './core/store/weather/services/weather.service';
 import {CurrentConditionComponent} from './components/current-condition/current-condition.component';
+
+export function initializeApp(appConfigService: ConfigService) {
+  return () => appConfigService.loadConfig().toPromise();
+}
 
 @NgModule({
   declarations: [
@@ -41,7 +45,16 @@ import {CurrentConditionComponent} from './components/current-condition/current-
     routing,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [LocationService, WeatherService],
+  providers: [
+    WeatherService,
+    ConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [ConfigService],
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
