@@ -1,9 +1,14 @@
-import { createAction, props } from '@ngrx/store';
-import {CurrentConditions} from '../../../models/current-conditions.type';
+import {createAction, props} from '@ngrx/store';
 import {Forecast} from '../../../models/forecast.type';
+import {CurrentConditions} from '../../../models/current-conditions.type';
 
 
 // adding/removing current locations.
+export const initCurrentConditions = createAction(
+    '[Location] Initialise Current Location From Local Storage',
+    props<{ zipcode: string }>()
+);
+
 export const addCurrentConditions = createAction(
     '[Location] Add Current Location',
     props<{ zipcode: string }>()

@@ -1,33 +1,32 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {WeatherFacade} from './core/store/weather/weather.facade';
+import {CacheService} from './core/services/cache.service';
 
-export const LOCATIONS : string = "locations";
+export const LOCATIONS: string = 'locations';
+export const LOCATION_CACHE_TTL: number = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
 
 @Injectable()
 export class LocationService {
+  locations: string[] = [];
 
-  locations : string[] = [];
+  constructor(private locationFacade: WeatherFacade, private cacheService: CacheService) {
+    const cachedLocations = this.cacheService.getAll<string>(LOCATIONS);
 
-  constructor(private locationFacade: WeatherFacade ) {
-    let locString = localStorage.getItem(LOCATIONS);
-    if (locString)
-      this.locations = JSON.parse(locString);
-    for (let loc of this.locations)
-      this.locationFacade.addCurrentConditions(loc);
+    console.log('Cached Locations:', cachedLocations); // Add this line
+
+    if (Object.keys(cachedLocations).length > 0) {
+      this.locations = [...new Set(Object.keys(cachedLocations))];
+    }
+
+    // Initialize current conditions for stored locations
+    this.locations.forEach((loc) => this.locationFacade.addCurrentConditions(loc));
   }
 
-  addLocation(zipcode : string) {
-    this.locations.push(zipcode);
-    localStorage.setItem(LOCATIONS, JSON.stringify(this.locations));
+  addLocation(zipcode: string) {
     this.locationFacade.addCurrentConditions(zipcode);
   }
 
-  removeLocation(zipcode : string) {
-    let index = this.locations.indexOf(zipcode);
-    if (index !== -1){
-      this.locations.splice(index, 1);
-      localStorage.setItem(LOCATIONS, JSON.stringify(this.locations));
+  removeLocation(zipcode: string) {
       this.locationFacade.removeCurrentConditions(zipcode);
-    }
   }
 }
