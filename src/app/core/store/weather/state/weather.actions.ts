@@ -4,9 +4,9 @@ import {CurrentConditions} from '../../../models/current-conditions.type';
 
 
 // adding/removing current locations.
-export const initCurrentConditions = createAction(
+export const readCurrentConditionsFromCache = createAction(
     '[Location] Initialise Current Location From Local Storage',
-    props<{ zipcode: string }>()
+    props<{ cacheKey: string }>()
 );
 
 export const addCurrentConditions = createAction(

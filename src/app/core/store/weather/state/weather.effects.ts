@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, concatMap, map, switchMap, tap} from 'rxjs/operators';
 import * as WeatherActions from './weather.actions';
-import {of} from 'rxjs';
+import {from, of} from 'rxjs';
 import {CacheService} from '../../../services/cache.service';
 import {CurrentConditions} from '../../../models/current-conditions.type';
 import {WeatherService} from '../services/weather.service';
@@ -11,6 +11,30 @@ import {Forecast} from '../../../models/forecast.type';
 
 @Injectable()
 export class WeatherEffects {
+    /**
+     * Reading the cached conditions when the application initialises.
+     */
+    readCurrentConditionsFromCache$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(WeatherActions.readCurrentConditionsFromCache),
+            switchMap(({ cacheKey }) => {
+                const cachedLocations = this.cacheService.getAll<string>(cacheKey);
+
+                if (Object.keys(cachedLocations).length > 0) {
+                    const locations = [...new Set(Object.keys(cachedLocations))];
+                    return from(locations).pipe(
+                        concatMap(loc => this.weatherService.addCurrentConditions(loc).pipe(
+                            map(data => WeatherActions.addCurrentConditionsSuccess({ zipcode: loc, data })),
+                            catchError(error => of(WeatherActions.addCurrentConditionsFailure({ zipcode: loc, error })))
+                        ))
+                    );
+                }
+                return of(null);
+            })
+        )
+    );
+
+
     addCurrentConditions$ = createEffect(() =>
         this.actions$.pipe(
             ofType(WeatherActions.addCurrentConditions),
@@ -40,6 +64,7 @@ export class WeatherEffects {
             dispatch: false
         }
     );
+
 
     getForecast$ = createEffect(() =>
         this.actions$.pipe(
