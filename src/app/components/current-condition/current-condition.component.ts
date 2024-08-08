@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core';
 import {ConditionsAndZip} from '../../core/models/conditions-and-zip.type';
-import {WeatherFacade} from '../../core/store/weather/weather.facade';
 
 @Component({
   selector: 'current-condition',
@@ -9,8 +8,5 @@ import {WeatherFacade} from '../../core/store/weather/weather.facade';
 })
 export class CurrentConditionComponent {
   @Input() location: ConditionsAndZip;
-
-  constructor(
-              public weatherFacade: WeatherFacade) {
-  }
+  @Input() srcUrl: string;
 }

@@ -3,7 +3,10 @@
 <div *ngFor="let location of currentConditionsByZip()">
     <ng-template #locationTemplate>
         <div class="well" (click)="showForecast(location.zip)">
-            <current-condition [location]="location"></current-condition>
+            <current-condition
+                    [location]="location"
+                    [srcUrl]="weatherFacade.getWeatherIcon(location.data.weather[0].id) | async">
+            </current-condition>
         </div>
     </ng-template>
 </div>
