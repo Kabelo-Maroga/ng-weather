@@ -1,4 +1,5 @@
 .popup {
+    height: 40px;
     width: 40%;
     position: fixed;
     left: 50%;
