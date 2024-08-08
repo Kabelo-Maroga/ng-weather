@@ -1,0 +1,4 @@
+<div class="popup" *ngIf="massage$ | async as message">
+    <p>{{ message }}</p>
+    <button (click)="close()">x</button>
+</div>
