@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
@@ -17,6 +17,11 @@ import * as LocationReducer from './core/store/weather/state/weather.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {WeatherEffects} from './core/store/weather/state/weather.effects';
 import {WeatherService} from './core/store/weather/services/weather.service';
+import {ConfigService} from './core/services/config.service';
+
+export function initializeApp(appConfigService: ConfigService) {
+  return () => appConfigService.loadConfig().toPromise();
+}
 
 @NgModule({
   declarations: [
@@ -38,7 +43,16 @@ import {WeatherService} from './core/store/weather/services/weather.service';
     routing,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [WeatherService],
+  providers: [
+    WeatherService,
+    ConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [ConfigService],
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
