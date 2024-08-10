@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { addNotification, dismissNotification } from './notification.actions';
 
-export const featureKey = "NotificationReducer";
+export const featureKey = 'NotificationReducer';
 
 export interface NotificationState {
     notification: string;

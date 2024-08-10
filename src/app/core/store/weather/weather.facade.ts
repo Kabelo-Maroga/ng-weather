@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {Store} from '@ngrx/store';
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import * as Selectors from './state/weather.selectors';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import * as Actions from './state/weather.actions';
 
 @Injectable({

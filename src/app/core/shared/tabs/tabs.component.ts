@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {NgForOf, NgIf, NgTemplateOutlet} from '@angular/common';
-import {Tab} from '../../models/tab.type';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
+import { Tab } from '../../models/tab.type';
 
 @Component({
   selector: 'app-tabs',

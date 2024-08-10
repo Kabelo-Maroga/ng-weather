@@ -1,27 +1,27 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {APP_INITIALIZER, NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
-import {AppComponent} from './app.component';
-import {ZipcodeEntryComponent} from './components/zipcode-entry/zipcode-entry.component';
-import {ForecastsListComponent} from './components/forecasts-list/forecasts-list.component';
-import {CurrentConditionsComponent} from './components/current-conditions/current-conditions.component';
-import {MainPageComponent} from './components/main-page/main-page.component';
-import {RouterModule} from '@angular/router';
-import {routing} from './app.routing';
-import {HttpClientModule} from '@angular/common/http';
-import {ServiceWorkerModule} from '@angular/service-worker';
-import {environment} from '../environments/environment';
-import {StoreModule} from '@ngrx/store';
+import { AppComponent } from './app.component';
+import { ZipcodeEntryComponent } from './components/zipcode-entry/zipcode-entry.component';
+import { ForecastsListComponent } from './components/forecasts-list/forecasts-list.component';
+import { CurrentConditionsComponent } from './components/current-conditions/current-conditions.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
+import { RouterModule } from '@angular/router';
+import { routing } from './app.routing';
+import { HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { StoreModule } from '@ngrx/store';
 import * as LocationReducer from './core/store/weather/state/weather.reducer';
 import * as NotificationReducer from './core/store/notification/state/notification.reducer';
-import {EffectsModule} from '@ngrx/effects';
-import {WeatherEffects} from './core/store/weather/state/weather.effects';
-import {ConfigService} from './core/services/config.service';
-import {WeatherService} from './core/store/weather/services/weather.service';
-import {CurrentConditionComponent} from './components/current-condition/current-condition.component';
-import {TabsComponent} from './core/shared/tabs/tabs.component';
-import {NotificationComponent} from './core/shared/notification/notification.component';
+import { EffectsModule } from '@ngrx/effects';
+import { WeatherEffects } from './core/store/weather/state/weather.effects';
+import { ConfigService } from './core/services/config.service';
+import { WeatherService } from './core/store/weather/services/weather.service';
+import { CurrentConditionComponent } from './components/current-condition/current-condition.component';
+import { TabsComponent } from './core/shared/tabs/tabs.component';
+import { NotificationComponent } from './core/shared/notification/notification.component';
 
 export function initializeApp(appConfigService: ConfigService) {
   return () => appConfigService.loadConfig().toPromise();
@@ -53,7 +53,7 @@ export function initializeApp(appConfigService: ConfigService) {
 
         EffectsModule.forFeature([WeatherEffects]),
         routing,
-        ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
         TabsComponent,
         NotificationComponent
     ],

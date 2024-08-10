@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Store} from '@ngrx/store';
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import * as NotificationSelectors from './state/notification.selectors';
 import * as NotificationActions from './state/notification.actions';
 

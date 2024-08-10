@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {ConditionsAndZip} from '../../core/models/conditions-and-zip.type';
+import { Component, Input } from '@angular/core';
+import { ConditionsAndZip } from '../../core/models/conditions-and-zip.type';
 
 @Component({
   selector: 'app-current-condition',

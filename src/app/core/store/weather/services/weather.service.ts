@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
-import {CurrentConditions} from '../../../models/current-conditions.type';
-import {Forecast} from '../../../models/forecast.type';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { CurrentConditions } from '../../../models/current-conditions.type';
+import { Forecast } from '../../../models/forecast.type';
 
 @Injectable()
 export class WeatherService {
@@ -26,18 +26,18 @@ export class WeatherService {
 
   getWeatherIcon(id: number): Observable<string> {
     if (id >= 200 && id <= 232)
-      return of(WeatherService.ICON_URL + "art_storm.png");
+      {return of(WeatherService.ICON_URL + 'art_storm.png');}
     else if (id >= 501 && id <= 511)
-      return of(WeatherService.ICON_URL + "art_rain.png");
+      {return of(WeatherService.ICON_URL + 'art_rain.png');}
     else if (id === 500 || (id >= 520 && id <= 531))
-      return of(WeatherService.ICON_URL + "art_light_rain.png");
+      {return of(WeatherService.ICON_URL + 'art_light_rain.png');}
     else if (id >= 600 && id <= 622)
-      return of(WeatherService.ICON_URL + "art_snow.png");
+      {return of(WeatherService.ICON_URL + 'art_snow.png');}
     else if (id >= 801 && id <= 804)
-      return of(WeatherService.ICON_URL + "art_clouds.png");
+      {return of(WeatherService.ICON_URL + 'art_clouds.png');}
     else if (id === 741 || id === 761)
-      return of(WeatherService.ICON_URL + "art_fog.png");
+      {return of(WeatherService.ICON_URL + 'art_fog.png');}
     else
-      return of(WeatherService.ICON_URL + "art_clear.png");
+      {return of(WeatherService.ICON_URL + 'art_clear.png');}
   }
 }

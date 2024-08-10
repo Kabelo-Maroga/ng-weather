@@ -1,6 +1,6 @@
-import {createAction, props} from '@ngrx/store';
-import {Forecast} from '../../../models/forecast.type';
-import {CurrentConditions} from '../../../models/current-conditions.type';
+import { createAction, props } from '@ngrx/store';
+import { Forecast } from '../../../models/forecast.type';
+import { CurrentConditions } from '../../../models/current-conditions.type';
 
 
 // adding or removing current locations.

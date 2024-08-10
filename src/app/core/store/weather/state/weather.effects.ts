@@ -1,15 +1,15 @@
-import {Injectable} from '@angular/core';
-import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {catchError, concatMap, filter, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, concatMap, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import * as WeatherActions from './weather.actions';
 import * as NotificationActions from '../../notification/state/notification.actions';
-import {from, iif, of} from 'rxjs';
-import {CacheService} from '../../../services/cache.service';
-import {CurrentConditions} from '../../../models/current-conditions.type';
-import {WeatherService} from '../services/weather.service';
-import {FORECAST, LOCATIONS} from '../../../models/constants/cache.type';
-import {Forecast} from '../../../models/forecast.type';
-import {ConfigService} from '../../../services/config.service';
+import { from, iif, of } from 'rxjs';
+import { CacheService } from '../../../services/cache.service';
+import { CurrentConditions } from '../../../models/current-conditions.type';
+import { WeatherService } from '../services/weather.service';
+import { FORECAST, LOCATIONS } from '../../../models/constants/cache.type';
+import { Forecast } from '../../../models/forecast.type';
+import { ConfigService } from '../../../services/config.service';
 
 @Injectable()
 export class WeatherEffects {
@@ -75,15 +75,15 @@ export class WeatherEffects {
             withLatestFrom(this.configService.config$),
             concatMap(([{ zipcode }, config]) => {
                 const cachedData: Forecast = this.cacheService.get(FORECAST, zipcode);
-                if(cachedData) {
+                if (cachedData) {
                     return of(WeatherActions.getForecastSuccess({ zipcode, data: cachedData }));
                 } else {
                     return this.weatherService.getForecast(zipcode).pipe(
                         map(data => {
                             this.cacheService.set<Forecast>(FORECAST, zipcode, data, config.cacheTTL);
-                            return WeatherActions.getForecastSuccess({zipcode, data})
+                            return WeatherActions.getForecastSuccess({ zipcode, data });
                         }),
-                        catchError(error => of(WeatherActions.getForecastFailure({zipcode, error})))
+                        catchError(error => of(WeatherActions.getForecastFailure({ zipcode, error })))
                     );
                 }
             }),
@@ -95,7 +95,7 @@ export class WeatherEffects {
         this.actions$.pipe(
             ofType(WeatherActions.getIcon),
             switchMap(({ id }) => this.weatherService.getWeatherIcon(id).pipe(
-                map(iconUrl => WeatherActions.getIconSuccess({ id, iconUrl})),
+                map(iconUrl => WeatherActions.getIconSuccess({ id, iconUrl })),
                 catchError(error => of(WeatherActions.getIconFailure({ id, error })))
             )),
         )

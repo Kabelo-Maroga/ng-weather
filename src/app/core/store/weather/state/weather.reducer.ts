@@ -1,9 +1,9 @@
-import {createReducer, on} from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import * as Actions from './weather.actions';
-import {ConditionsAndZip} from '../../../models/conditions-and-zip.type';
-import {Forecast} from '../../../models/forecast.type';
+import { ConditionsAndZip } from '../../../models/conditions-and-zip.type';
+import { Forecast } from '../../../models/forecast.type';
 
-export const featureKey = "LocationReducer";
+export const featureKey = 'LocationReducer';
 
 export interface State {
     currentConditions: ConditionsAndZip[],

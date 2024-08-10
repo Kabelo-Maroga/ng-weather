@@ -1,10 +1,10 @@
-import {AfterContentChecked, AfterViewInit, Component, inject, OnInit, QueryList, TemplateRef, ViewChildren} from '@angular/core';
-import {Router} from '@angular/router';
-import {WeatherFacade} from '../../core/store/weather/weather.facade';
-import {toSignal} from '@angular/core/rxjs-interop';
-import {LOCATIONS} from '../../core/models/constants/cache.type';
-import {Tab} from '../../core/models/tab.type';
-import {ConditionsAndZip} from '../../core/models/conditions-and-zip.type';
+import { AfterContentChecked, AfterViewInit, Component, inject, OnInit, QueryList, TemplateRef, ViewChildren } from '@angular/core';
+import { Router } from '@angular/router';
+import { WeatherFacade } from '../../core/store/weather/weather.facade';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { LOCATIONS } from '../../core/models/constants/cache.type';
+import { Tab } from '../../core/models/tab.type';
+import { ConditionsAndZip } from '../../core/models/conditions-and-zip.type';
 
 @Component({
   selector: 'app-current-conditions',
@@ -41,13 +41,13 @@ export class CurrentConditionsComponent implements OnInit, AfterViewInit, AfterC
   }
 
   ngAfterContentChecked(): void {
-    if(this.locationTemplates) {
+    if (this.locationTemplates) {
       this.createTemplates();
     }
   }
 
-  showForecast(zipcode : string){
-    this.router.navigate(['/forecast', zipcode])
+  showForecast(zipcode : string) {
+    this.router.navigate(['/forecast', zipcode]);
   }
 
   tabExists(location: ConditionsAndZip): boolean {

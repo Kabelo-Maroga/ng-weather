@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core';
-import {AsyncPipe, NgIf} from '@angular/common';
-import {NotificationFacade} from '../../store/notification/notification.facade';
+import { Component, Input } from '@angular/core';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { NotificationFacade } from '../../store/notification/notification.facade';
 
 @Component({
   selector: 'app-notification',
@@ -13,7 +13,7 @@ import {NotificationFacade} from '../../store/notification/notification.facade';
   styleUrl: './notification.component.css'
 })
 export class NotificationComponent {
-  @Input() message: string = '';
+  @Input() message = '';
   isVisible = true;
 
   massage$ = this.notificationFacade.selectNotification$;
