@@ -12,8 +12,9 @@ export class ConfigService {
 
   constructor(private http: HttpClient) {}
 
-  loadConfig(): Observable<any> {
-    return this.http.get('/assets/config/cache-config.json').pipe(
+
+  loadConfig(): Observable<{ cacheTTL: number }> {
+    return this.http.get<{ cacheTTL: number }>('/assets/config/cache-config.json').pipe(
         tap(config => {
           this.configSubject.next(config)
         })
