@@ -1,0 +1,151 @@
+{
+    "root": true,
+    "ignorePatterns": [
+        "projects/**/*"
+    ],
+    "overrides": [
+        {
+            "files": [
+                "*.ts"
+            ],
+            "parserOptions": {
+                "project": [
+                    "tsconfig.json"
+                ],
+                "createDefaultProgram": true
+            },
+            "extends": [
+                "plugin:@angular-eslint/recommended",
+                "plugin:@typescript-eslint/recommended",
+                "plugin:@typescript-eslint/recommended-requiring-type-checking"
+            ],
+            "rules": {
+                "@typescript-eslint/consistent-type-definitions": [
+                    "error",
+                    "interface"
+                ],
+                "@typescript-eslint/explicit-member-accessibility": "off",
+                "@typescript-eslint/member-ordering": [
+                    "error",
+                    {
+                        "default": [
+                            "static-field",
+                            "instance-field",
+                            "static-method",
+                            "instance-method"
+                        ]
+                    }
+                ],
+                "@typescript-eslint/no-shadow": [
+                    "error"
+                ],
+                "@typescript-eslint/no-unused-expressions": "error",
+                "@typescript-eslint/quotes": [
+                    "error",
+                    "single"
+                ],
+                "@typescript-eslint/semi": [
+                    "error",
+                    "always"
+                ],
+                "@typescript-eslint/triple-slash-reference": "error",
+                "@typescript-eslint/no-inferrable-types": [
+                    "error",
+                    {
+                        "ignoreParameters": true
+                    }
+                ],
+                "curly": "error",
+                "eol-last": "error",
+                "max-len": [
+                    "error",
+                    {
+                        "code": 140
+                    }
+                ],
+                "no-bitwise": "error",
+                "no-console": [
+                    "error",
+                    {
+                        "allow": [
+                            "warn",
+                            "error"
+                        ]
+                    }
+                ],
+                "no-debugger": "error",
+                "no-duplicate-imports": "error",
+                "no-eval": "error",
+                "no-redeclare": "error",
+                "prefer-const": "error",
+                "radix": "error",
+                "use-isnan": "error",
+                "camelcase": "off",
+                "no-var": "error",
+                "object-curly-spacing": [
+                    "error",
+                    "always"
+                ],
+                "one-var": [
+                    "error",
+                    "never"
+                ],
+                "space-before-blocks": "error",
+                "keyword-spacing": [
+                    "error",
+                    {
+                        "before": true
+                    }
+                ],
+                "space-infix-ops": "error",
+                "@angular-eslint/directive-selector": [
+                    "error",
+                    {
+                        "type": "attribute",
+                        "prefix": "app",
+                        "style": "camelCase"
+                    }
+                ],
+                "@angular-eslint/component-selector": [
+                    "error",
+                    {
+                        "type": "element",
+                        "prefix": "app",
+                        "style": "kebab-case"
+                    }
+                ],
+                "@angular-eslint/no-input-rename": "error",
+                "@angular-eslint/no-output-rename": "error",
+                "@angular-eslint/use-lifecycle-interface": "error",
+                "@angular-eslint/use-pipe-transform-interface": "error",
+                "@angular-eslint/component-class-suffix": [
+                    "error",
+                    {
+                        "suffixes": [
+                            "Component"
+                        ]
+                    }
+                ],
+                "@angular-eslint/directive-class-suffix": [
+                    "error",
+                    {
+                        "suffixes": [
+                            "Directive"
+                        ]
+                    }
+                ],
+                "@angular-eslint/no-access-missing-member": "error",
+                "@angular-eslint/use-injectable-provided-in": "error"
+            }
+        },
+        {
+            "files": [
+                "*.html"
+            ],
+            "extends": [
+                "plugin:@angular-eslint/template/recommended"
+            ],
+            "rules": {}
+        }
+    ]
+}
