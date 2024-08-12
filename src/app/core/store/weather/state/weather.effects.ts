@@ -11,9 +11,10 @@ import { FORECAST, LOCATIONS } from '../../../models/constants/cache.type';
 import { Forecast } from '../../../models/forecast.type';
 import { ConfigService } from '../../../services/config.service';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class WeatherEffects {
-    cacheTTL: number;
     /**
      * Reading the cached conditions when the application initialises.
      */
@@ -50,7 +51,7 @@ export class WeatherEffects {
                             this.cacheService.set<CurrentConditions>(LOCATIONS, zipcode, data, config.cacheTTL);
                             return WeatherActions.addCurrentConditionsSuccess({ zipcode, data });
                         }),
-                        catchError(error => of(WeatherActions.addCurrentConditionsFailure({ zipcode, error })))
+                        catchError((error: string) => of(WeatherActions.addCurrentConditionsFailure({ zipcode, error })))
                     )
                 );
             })
@@ -61,7 +62,7 @@ export class WeatherEffects {
     removeCurrentConditions$ = createEffect(() =>
         this.actions$.pipe(
             ofType(WeatherActions.removeCurrentConditions),
-            tap(({ zipcode }) => this.cacheService.clear(LOCATIONS, zipcode)),
+            tap(({ zipcode }) => this.cacheService.clear<string>(LOCATIONS, zipcode)),
 
         ), {
             dispatch: false
@@ -83,7 +84,7 @@ export class WeatherEffects {
                             this.cacheService.set<Forecast>(FORECAST, zipcode, data, config.cacheTTL);
                             return WeatherActions.getForecastSuccess({ zipcode, data });
                         }),
-                        catchError(error => of(WeatherActions.getForecastFailure({ zipcode, error })))
+                        catchError((error: string) => of(WeatherActions.getForecastFailure({ zipcode, error })))
                     );
                 }
             }),
@@ -96,7 +97,7 @@ export class WeatherEffects {
             ofType(WeatherActions.getIcon),
             switchMap(({ id }) => this.weatherService.getWeatherIcon(id).pipe(
                 map(iconUrl => WeatherActions.getIconSuccess({ id, iconUrl })),
-                catchError(error => of(WeatherActions.getIconFailure({ id, error })))
+                catchError((error: string) => of(WeatherActions.getIconFailure({ id, error })))
             )),
         )
     );
@@ -106,7 +107,5 @@ export class WeatherEffects {
         private weatherService: WeatherService,
         private cacheService: CacheService,
         private configService: ConfigService
-    ) {
-        // this.cacheTTL = this.configService.getConfig();
-    }
+    ) {}
 }

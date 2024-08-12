@@ -4,7 +4,9 @@ import { Observable, of } from 'rxjs';
 import { CurrentConditions } from '../../../models/current-conditions.type';
 import { Forecast } from '../../../models/forecast.type';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class WeatherService {
 
   static URL = 'https://api.openweathermap.org/data/2.5';
@@ -14,14 +16,18 @@ export class WeatherService {
   constructor(private http: HttpClient) { }
 
   addCurrentConditions(zipcode: string): Observable<CurrentConditions> {
-
-    // Here we make a request to get the current conditions data from the API. Note the use of backticks and an expression to insert the zipcode
-    return this.http.get<CurrentConditions>(`${WeatherService.URL}/weather?zip=${zipcode},us&units=imperial&APPID=${WeatherService.APPID}`);
+    /*
+      Here we make a request to get the current conditions data from the API.
+      Note the use of backticks and an expression to insert the zipcode
+    */
+    return this.http
+        .get<CurrentConditions>(`${WeatherService.URL}/weather?zip=${zipcode},us&units=imperial&APPID=${WeatherService.APPID}`);
   }
 
   getForecast(zipcode: string): Observable<Forecast> {
     // Here we make a request to get the forecast data from the API. Note the use of backticks and an expression to insert the zipcode
-    return this.http.get<Forecast>(`${WeatherService.URL}/forecast/daily?zip=${zipcode},us&units=imperial&cnt=5&APPID=${WeatherService.APPID}`);
+    return this.http
+        .get<Forecast>(`${WeatherService.URL}/forecast/daily?zip=${zipcode},us&units=imperial&cnt=5&APPID=${WeatherService.APPID}`);
   }
 
   getWeatherIcon(id: number): Observable<string> {

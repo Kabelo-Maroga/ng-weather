@@ -12,8 +12,13 @@ import {
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
 
+interface Karma {
+  loaded: () => void;
+  start: () => void;
+}
+
 // Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
-declare let __karma__: any;
+declare let __karma__: Karma;
 
 // Prevent Karma from running prematurely.
 __karma__.loaded = function () {};

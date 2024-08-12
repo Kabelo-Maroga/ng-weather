@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ConfigService {
-  private configSubject = new BehaviorSubject<any>(null);
+  private configSubject = new BehaviorSubject<{ cacheTTL: number }>(null);
   config$ = this.configSubject.asObservable();
 
   constructor(private http: HttpClient) {}

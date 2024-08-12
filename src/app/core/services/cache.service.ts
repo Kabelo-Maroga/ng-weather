@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-interface CacheEntry {
-  value: any;
+interface CacheEntry<T> {
+  value: T;
   expiry: number;
 }
 
@@ -19,13 +19,13 @@ export class CacheService {
    */
   set<T>(cacheKey: string, secondaryKey: string, value: T, ttl: number): void {
     const expiry = Date.now() + ttl;
-    const cache: CacheEntry = { value, expiry };
+    const cache: CacheEntry<T> = { value, expiry };
 
     const existingCache = localStorage.getItem(cacheKey);
-    let cacheMap: { [key: string]: CacheEntry };
+    let cacheMap: { [key: string]: CacheEntry<T> };
 
     if (existingCache) {
-      cacheMap = JSON.parse(existingCache);
+      cacheMap = JSON.parse(existingCache) as { [key: string]: CacheEntry<T> };
     } else {
       cacheMap = {};
     }
@@ -45,7 +45,7 @@ export class CacheService {
       return null;
     }
 
-    const cacheMap: { [key: string]: CacheEntry } = JSON.parse(cacheItem);
+    const cacheMap = JSON.parse(cacheItem) as { [key: string]: CacheEntry<T> };
     const cacheEntry = cacheMap[zipcode];
 
     if (!cacheEntry) {
@@ -57,7 +57,7 @@ export class CacheService {
       localStorage.setItem(cacheKey, JSON.stringify(cacheMap));
       return null;
     }
-    return cacheEntry.value as T;
+    return cacheEntry.value;
   }
 
   /**
@@ -70,12 +70,12 @@ export class CacheService {
       return {};
     }
 
-    const cacheMap: { [key: string]: CacheEntry } = JSON.parse(cacheItem);
+    const cacheMap = JSON.parse(cacheItem) as { [key: string]: CacheEntry<T> };
     const validEntries: { [key: string]: T } = {};
 
     for (const key in cacheMap) {
       if (Date.now() <= cacheMap[key].expiry) {
-        validEntries[key] = cacheMap[key].value as T;
+        validEntries[key] = cacheMap[key].value;
       } else {
         delete cacheMap[key];
       }
@@ -85,13 +85,13 @@ export class CacheService {
     return validEntries;
   }
 
-  clear(cacheKey: string, secondaryKey: string): void {
+  clear<T>(cacheKey: string, secondaryKey: string): void {
     const cacheItem = localStorage.getItem(cacheKey);
     if (!cacheItem) {
       return;
     }
 
-    const cacheMap: { [key: string]: CacheEntry } = JSON.parse(cacheItem);
+    const cacheMap = JSON.parse(cacheItem) as { [key: string]: CacheEntry<T> };
     delete cacheMap[secondaryKey];
     localStorage.setItem(cacheKey, JSON.stringify(cacheMap));
   }

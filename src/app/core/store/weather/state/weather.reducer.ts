@@ -3,7 +3,7 @@ import * as Actions from './weather.actions';
 import { ConditionsAndZip } from '../../../models/conditions-and-zip.type';
 import { Forecast } from '../../../models/forecast.type';
 
-export const featureKey = 'LocationReducer';
+export const featureKey = 'WeatherReducer';
 
 export interface State {
     currentConditions: ConditionsAndZip[],
@@ -20,7 +20,7 @@ export const initialState: State = {
 export const weatherReducer = createReducer(
     initialState,
     on(Actions.addCurrentConditionsSuccess, (state, { zipcode, data }) => {
-        const condition = state.currentConditions.find(condition => condition.zip === zipcode);
+        const condition = state.currentConditions.find(currentCondition => currentCondition.zip === zipcode);
         if (condition) {
             return state;
         }

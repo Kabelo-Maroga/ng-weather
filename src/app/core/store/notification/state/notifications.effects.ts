@@ -4,7 +4,9 @@ import { of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { addNotification, dismissNotification } from './notification.actions';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class NotificationEffects {
 
     addNotification$ = createEffect(() =>

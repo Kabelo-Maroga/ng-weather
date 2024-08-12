@@ -19,6 +19,6 @@ export const notificationReducer = createReducer(
     })),
     on(dismissNotification, (state, { notification }) => ({
         ...state,
-        notification: null
+        notification: notification
     }))
 );

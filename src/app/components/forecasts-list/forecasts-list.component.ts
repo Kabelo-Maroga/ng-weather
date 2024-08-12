@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { WeatherFacade } from '../../core/store/weather/weather.facade';
 
 @Component({
@@ -11,9 +11,11 @@ export class ForecastsListComponent {
   protected forecast$ = this.weatherFacade.selectForecast$;
 
   constructor(protected weatherFacade: WeatherFacade, route : ActivatedRoute) {
-    route.params.subscribe(params => {
-      const zipcode = params['zipcode'];
-      weatherFacade.getForecast(zipcode);
+    route.paramMap.subscribe((params: ParamMap) => {
+      const zipcode = params.get('zipcode');
+      if (zipcode) {
+        weatherFacade.getForecast(zipcode);
+      }
     });
   }
 }

@@ -9,16 +9,16 @@ import { Tab } from '../../models/tab.type';
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.css'
 })
-export class TabsComponent {
-  @Input() tabs: Tab[] = [];
+export class TabsComponent<T> {
+  @Input() tabs: Tab<T>[] = [];
   @Output() closeTab = new EventEmitter<string>();
 
-  selectTab(selectedTab: Tab): void {
+  selectTab(selectedTab: Tab<T>): void {
     this.tabs.forEach(tab => tab.active = false);
     selectedTab.active = true;
   }
 
-  close(tabToClose: Tab): void {
+  close(tabToClose: Tab<T>): void {
     const index = this.tabs.indexOf(tabToClose);
     if (index !== -1) {
       this.tabs.splice(index, 1);
